@@ -54,8 +54,8 @@ export function Header() {
               textDecoration: "none",
             }}
           >
-            <img
-              src="/src/img/logo.png"
+            <Avatar
+              src="./src/img/logo.png"
               style={{
                 width: 200,
                 height: "100%",
@@ -137,7 +137,7 @@ export function Header() {
           </Box>
 
           <Avatar
-            src="/src/img/logo.png"
+            src="./src/img/logo.png"
             style={{
               width: 200,
               height: "100%",
