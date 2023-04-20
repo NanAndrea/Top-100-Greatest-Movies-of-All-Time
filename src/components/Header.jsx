@@ -15,6 +15,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 
 import Image from "../img/film-background-image.jpg";
+import Logo from "../img/logo.png"
 import { NavLink } from "react-router-dom";
 import { FavoriteContext } from "../context/favoriteMovies/FavoriteContext";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
@@ -53,7 +54,7 @@ export function Header() {
               textDecoration: "none",
             }}
           >
-            <Avatar
+            <img
               src="/src/img/logo.png"
               style={{
                 width: 200,
