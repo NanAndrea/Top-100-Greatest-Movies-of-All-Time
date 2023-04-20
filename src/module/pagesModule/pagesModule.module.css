@@ -1,0 +1,52 @@
+.imageZoom{
+    position: relative;
+	transition: transform 0.2s;
+}
+
+.imageZoom:hover {
+	cursor: pointer;
+	transform: scale(1.1);
+}
+
+.imageZoom:hover .overlay {
+	opacity: 1;
+}
+
+.overlay {
+	position: absolute;
+	background: rgba(0, 0, 0, 0.8);
+	width: calc(100% - 32px); 
+	transition: 0.5s ease;
+	opacity: 0;
+	bottom: 0;
+	
+	padding: 20px;
+	text-align: center;
+}
+
+.imageZoomHome{
+    position: relative;
+	transition: transform 0.2s;
+}
+
+.imageZoomHome:hover{
+    cursor: pointer;
+	transform: scale(1.05);
+}
+
+.imageZoomHome:hover .overlayHome {
+	opacity: 1;
+}
+
+.overlayHome {
+	position: absolute;
+	
+	width: calc(100% - 32px); 
+	transition: 0.5s ease;
+	opacity: 0;
+	bottom: 0;
+	
+	
+	
+}
+
