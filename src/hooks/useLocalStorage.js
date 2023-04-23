@@ -8,7 +8,7 @@ export function useLocalStorage(key, initialValue) {
         if (localStorageElement) {
             return JSON.parse(localStorageElement);
         }
-        return initialValue
+        return initialValue;
        
     });
 

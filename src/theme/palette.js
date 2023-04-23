@@ -8,5 +8,7 @@ export const palette = {
         light: "#FFFFFF",
     },
   
-    
+    action:{
+        disabled: "#ff0000"
+    },
 }

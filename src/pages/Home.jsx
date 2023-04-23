@@ -1,9 +1,8 @@
 import {
   Box,
-  Button,
-  ButtonGroup,
+ 
   CircularProgress,
-  Container,
+ 
   FormControl,
   Grid,
   MenuItem,
@@ -27,6 +26,7 @@ import genreOptions from "../services/genreOptions.json";
 
 import { MovieCard } from "../components/MovieCard";
 import { MovieList } from "../components/MovieList";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 export function Home() {
   const {
@@ -38,15 +38,15 @@ export function Home() {
     initialData: [],
   });
 
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useLocalStorage("page", 1);
   const [moviesPerPage] = useState(24);
 
   const [genre, setGenre] = useState("allGenre");
 
-  const [showList, setShowList] = useState(false);
-  const [showPosters, setShowPosters] = useState(true);
+  const [showList, setShowList] = useLocalStorage("showList", false);
+  const [showPosters, setShowPosters] = useLocalStorage("showPosters",true);
 
-  const [formats, setFormats] = useState("posters");
+  const [formats, setFormats] = useLocalStorage("format", showPosters);
 
   const Movies = usePagination(movies, moviesPerPage);
   const count = Math.ceil(movies.length / moviesPerPage);
@@ -56,13 +56,18 @@ export function Home() {
     Movies.jump(p);
   };
 
+
+ 
+  
   function handleShowPosters() {
     setShowPosters(true);
+    
     setShowList(false);
   }
 
   function handleShowList() {
     setShowList(true);
+    
     setShowPosters(false);
   }
 
@@ -76,9 +81,13 @@ export function Home() {
         return movies;
       }
       const movieGenre = movie.genre.map((val) => val.toLowerCase());
+     
       return movieGenre.includes(genre);
+      
     });
   }, [genre]);
+
+ 
 
   if (loading) {
     return <CircularProgress />;
@@ -174,6 +183,7 @@ export function Home() {
             </Box>
             <Box display="flex" justifyContent="center" paddingY={2}>
               <Pagination
+              defaultPage={1}
                 count={count}
                 size="large"
                 page={page}
@@ -182,6 +192,8 @@ export function Home() {
                 shape="rounded"
                 showFirstButton
                 showLastButton
+                
+                
               />
             </Box>
           </Box>

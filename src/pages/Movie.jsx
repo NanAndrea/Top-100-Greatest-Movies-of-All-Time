@@ -1,5 +1,5 @@
 
-import { useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import {
   Box,
   Button,
@@ -13,23 +13,41 @@ import {
 } from "@mui/material";
 import { getMovieByMovieId } from "../services/movies";
 import StarRateIcon from '@mui/icons-material/StarRate';
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useContext } from "react";
 import { FavoriteContext } from "../context/favoriteMovies/FavoriteContext";
 import { useFetchData } from "../hooks/useFetchData";
 
+
+
 export function Movie() {
   const { addFavorite, favorite } = useContext(FavoriteContext);
-  const { id } = useParams();
 
-  const { data: movie, loading } = useFetchData({
+ 
+
+  const { id } = useParams();
+  
+
+  const { data: movie, loading, error} = useFetchData({
     fetcher: () => getMovieByMovieId(id),
   });
+
+  
 
   if (loading) {
     return <CircularProgress />;
   }
+  if (error) {
+    return (
+      <Box>
+        <Navigate to="/404"/>
+      </Box>
+    );
+  }
+
   
+  let iconStoredMovie = favorite.find(item=>item.id === movie.id);
+   const favoriteIconList = iconStoredMovie ? true : false;
 
   return (
     <Box>
@@ -39,7 +57,7 @@ export function Movie() {
             <Grid container justifyContent="space-between">
               <Grid item >
                 <Typography gutterBottom variant="h4" component="div" marginBottom={0}>
-                  {movie.rank}.{movie.title}{" "}
+                  {movie.rank}.{movie.title}
                 </Typography>
                 <Typography
                   variant="h6"
@@ -57,12 +75,14 @@ export function Movie() {
               </Grid>
               <Grid item>
               <Button
-                    
+                    disabled={favoriteIconList}
                     onClick={() => {
                       addFavorite(movie);
+                      
                     }}
+                    color={favoriteIconList ? "primary" : "secondary"}
                   >
-                    <FavoriteBorderIcon color="secondary" />
+                    <FavoriteIcon />
                   </Button>
               </Grid>
             </Grid>

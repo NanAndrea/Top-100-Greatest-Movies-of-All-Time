@@ -13,12 +13,11 @@ import { FavoriteContext } from "../context/favoriteMovies/FavoriteContext";
 
 import DeleteIcon from "@mui/icons-material/Delete";
 import { ScrollToTop } from "../components/ScrollToTop";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import classes from "../module/pagesModule/pagesModule.module.css";
 
 export function FavoriteMovies() {
-  const navigate = useNavigate();
-
+  
   const { favorite, removeFavorite } = useContext(FavoriteContext);
 
   return (
@@ -36,6 +35,7 @@ export function FavoriteMovies() {
                 key={movie.id}
                 className={classes.imageZoom}
               >
+                <Link to={`movie/${movie.id}`}>
                 <Card
                   component={Paper}
                   elevation={6}
@@ -45,7 +45,7 @@ export function FavoriteMovies() {
                     flexDirection: "column",
                   }}
                 >
-                  <Link to={`movie/${movie.id}`}>
+                  
                     <CardMedia
                       component="img"
                       width="100%"
@@ -53,7 +53,7 @@ export function FavoriteMovies() {
                       title={movie.title}
                       alt={movie.title}
                     />
-                  </Link>
+                  
                   <Box
                     className={classes.overlay}
                     display="flex"
@@ -62,15 +62,20 @@ export function FavoriteMovies() {
                   >
                     <Tooltip title="Remove from favorite">
                       <DeleteIcon
-                        onClick={() => {
+                        onClick={(e) => {
+                          e.preventDefault();
+                          e.stopPropagation();
                           removeFavorite(movie);
+                          
                         }}
                         color="secondary"
                         sx={{ cursor: "pointer" }}
                       />
                     </Tooltip>
                   </Box>
+                 
                 </Card>
+                </Link>
               </Grid>
             );
           })

@@ -1,14 +1,22 @@
 import { Box, Button, Card, CardContent, CardMedia, Paper, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import StarRateIcon from '@mui/icons-material/StarRate';
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { FavoriteContext } from "../context/favoriteMovies/FavoriteContext";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import classes from "../module/pagesModule/pagesModule.module.css";
+import styled from "@emotion/styled";
 
 export function MovieCard({movie}){
-    const { addFavorite } = useContext(FavoriteContext);
+ 
+    const { addFavorite, favorite} = useContext(FavoriteContext);
+
+    let iconStoredMovie = favorite.find(item=>item.id === movie.id);
+    const favoriteIconList = iconStoredMovie ? true : false;
+
     return(
+      <Link to={`movie/${movie.id}`}>
         <Card
         component={Paper}
         elevation={6}
@@ -18,7 +26,7 @@ export function MovieCard({movie}){
           flexDirection: "column",
         }}
       >
-        <Link to={`movie/${movie.id}`}>
+        
           <CardMedia
             component="img"
             max-width="100%"
@@ -26,7 +34,7 @@ export function MovieCard({movie}){
             title={movie.title}
             alt={movie.title}
           />
-        </Link>
+        
         <CardContent>
           <Typography
             color="text.secondary"
@@ -47,17 +55,26 @@ export function MovieCard({movie}){
             {movie.title}
           </Typography>
         </CardContent>
+        
 
         <Box className={classes.overlayHome} textAlign="end">
           <Button
-            
-            onClick={() => {
+           disabled={favoriteIconList}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
               addFavorite(movie);
+              
+              
+             
             }}
+            color={favoriteIconList ? "primary" : "secondary"}
           >
-            <FavoriteBorderIcon color="secondary" />
+            <FavoriteIcon/>
           </Button>
         </Box>
+        
       </Card>
+      </Link>
     );
 }
