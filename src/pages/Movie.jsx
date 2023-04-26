@@ -1,5 +1,5 @@
 
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 import {
   Box,
   Button,
@@ -22,9 +22,6 @@ import { useFetchData } from "../hooks/useFetchData";
 
 export function Movie() {
   const { addFavorite, favorite } = useContext(FavoriteContext);
-
- 
-
   const { id } = useParams();
   
 
@@ -32,11 +29,10 @@ export function Movie() {
     fetcher: () => getMovieByMovieId(id),
   });
 
-  
-
   if (loading) {
     return <CircularProgress />;
   }
+
   if (error) {
     return (
       <Box>
@@ -47,7 +43,7 @@ export function Movie() {
 
   
   let iconStoredMovie = favorite.find(item=>item.id === movie.id);
-   const favoriteIconList = iconStoredMovie ? true : false;
+  const favoriteIconList = iconStoredMovie ? true : false;
 
   return (
     <Box>
@@ -55,7 +51,7 @@ export function Movie() {
         <Paper sx={{ p: 2 }} elevation={6}>
           <Grid container textAlign="start" maxWidth="lg" >
             <Grid container justifyContent="space-between">
-              <Grid item >
+              <Grid item md={10} xs={8}>
                 <Typography gutterBottom variant="h4" component="div" marginBottom={0}>
                   {movie.rank}.{movie.title}
                 </Typography>

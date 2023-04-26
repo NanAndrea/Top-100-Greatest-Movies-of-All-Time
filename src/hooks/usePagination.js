@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useLocalStorage } from "./useLocalStorage";
 
 export function usePagination(data, itemsPerPage) {
-  const [page, setPage] = useLocalStorage("page", 1);
+    const [page] = useLocalStorage("page", 1);
     const [currentPage, setCurrentPage] = useState(page);
    
     const maxPage = Math.ceil(data.length / itemsPerPage);

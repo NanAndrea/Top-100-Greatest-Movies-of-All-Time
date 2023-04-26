@@ -16,7 +16,7 @@ import { Stack } from "@mui/system";
 
 import { getAllMovies } from "../services/movies";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { useFetchData } from "../hooks/useFetchData";
 import { ScrollToTop } from "../components/ScrollToTop";
@@ -41,7 +41,7 @@ export function Home() {
   const [page, setPage] = useLocalStorage("page", 1);
   const [moviesPerPage] = useState(24);
 
-  const [genre, setGenre] = useState("allGenre");
+  const [genre, setGenre] = useLocalStorage("genre", "allGenre");
 
   const [showList, setShowList] = useLocalStorage("showList", false);
   const [showPosters, setShowPosters] = useLocalStorage("showPosters",true);
@@ -51,18 +51,15 @@ export function Home() {
   const Movies = usePagination(movies, moviesPerPage);
   const count = Math.ceil(movies.length / moviesPerPage);
 
-  const handleChange = (e, p) => {
+ function handleChangePage(event, p) {
     setPage(p);
     Movies.jump(p);
   };
 
-
- 
   
   function handleShowPosters() {
     setShowPosters(true);
-    
-    setShowList(false);
+     setShowList(false);
   }
 
   function handleShowList() {
@@ -75,18 +72,19 @@ export function Home() {
     setFormats(newFormats);
   }
 
+
   const data = useMemo(() => {
     return movies.filter((movie) => {
       if (genre === "allGenre") {
-        return movies;
+        return movies;    
       }
       const movieGenre = movie.genre.map((val) => val.toLowerCase());
-     
       return movieGenre.includes(genre);
       
-    });
-  }, [genre]);
-
+    },[genre]);
+   
+  });
+ 
  
 
   if (loading) {
@@ -133,11 +131,12 @@ export function Home() {
             </ToggleButtonGroup>
           </Stack>
 
-          <Box sx={{ minWidth: 150 }}>
-            <FormControl>
+          <Box paddingX={2}>
+            <FormControl  sx={{ width: 150 }}>
               <Select
-                labelId="demo-simple-select-label"
-                id="demo-simple-select"
+                labelId="multiple-select-label"
+                id="multiple-select"
+                
                 value={genre}
                 onChange={(event) => setGenre(event.target.value)}
               >
@@ -187,7 +186,7 @@ export function Home() {
                 count={count}
                 size="large"
                 page={page}
-                onChange={handleChange}
+                onChange={handleChangePage}
                 color="secondary"
                 shape="rounded"
                 showFirstButton
@@ -198,7 +197,7 @@ export function Home() {
             </Box>
           </Box>
         ) : (
-          <Box>
+          <Box marginBottom={4}>
             <Grid container spacing={4}>
               {showPosters &&
                 data.map((movie) => (
