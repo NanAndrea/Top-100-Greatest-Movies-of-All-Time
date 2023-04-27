@@ -12,6 +12,11 @@
       "label": "Adventure"
     },
     {
+      "value": "animation",
+      "label": "Animation"
+    },
+
+    {
       "value": "biography",
       "label": "Biography"
     },
