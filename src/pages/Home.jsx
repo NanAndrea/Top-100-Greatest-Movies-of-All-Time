@@ -16,7 +16,7 @@ import { Stack } from "@mui/system";
 
 import { getAllMovies } from "../services/movies";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 
 import { useFetchData } from "../hooks/useFetchData";
 import { ScrollToTop } from "../components/ScrollToTop";
@@ -37,6 +37,7 @@ export function Home() {
     fetcher: getAllMovies,
     initialData: [],
   });
+  
 
   const [page, setPage] = useLocalStorage("page", 1);
   const [moviesPerPage] = useState(24);
