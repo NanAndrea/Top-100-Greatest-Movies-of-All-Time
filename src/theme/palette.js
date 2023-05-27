@@ -1,4 +1,5 @@
 export const palette = {
+    
     primary:{
         main: "#FFFFFF"
 

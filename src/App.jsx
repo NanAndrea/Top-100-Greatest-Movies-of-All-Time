@@ -1,30 +1,25 @@
+import { CssBaseline} from "@mui/material";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import "./App.css";
 
-import { ThemeProvider } from '@mui/material';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import './App.css'
+import Routes from "./routes";
 
-import Routes from './routes'
-import { theme } from './theme';
-import { FavoriteContextProvider } from './context/favoriteMovies/FavoriteContextProvider';
+import { FavoriteContextProvider } from "./context/favoriteMovies/FavoriteContextProvider";
+import { ThemeContextProvider } from "./context/theme/ThemeContextProvider";
 
 const queryClient = new QueryClient();
 function App() {
-  
-
   return (
-    <FavoriteContextProvider>
-    <ThemeProvider theme={theme}>
+    <ThemeContextProvider>
+      <FavoriteContextProvider>
+        <CssBaseline />
+
         <QueryClientProvider client={queryClient}>
-        <Routes />
+          <Routes />
         </QueryClientProvider>
-        
-      </ThemeProvider>
-    
       </FavoriteContextProvider>
-      
-     
-    
+    </ThemeContextProvider>
   );
 }
 
-export default App
+export default App;

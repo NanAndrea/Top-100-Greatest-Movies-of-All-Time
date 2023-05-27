@@ -10,17 +10,25 @@ import {
   Menu,
   MenuItem,
   Toolbar,
+  Tooltip,
   Typography,
+  useTheme,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
 
 import Image from "../img/film-background-image.jpg";
-import Logo from "../img/logo.png"
+import Logo from "../img/logo.png";
 import { NavLink } from "react-router-dom";
 import { FavoriteContext } from "../context/favoriteMovies/FavoriteContext";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { ThemeContext } from "../context/theme/ThemeContext";
+
 
 export function Header() {
+  const theme = useTheme();
+  const { toggleMode } = useContext(ThemeContext);
   const { favorite } = useContext(FavoriteContext);
 
   const [anchorElNav, setAnchorElNav] = useState();
@@ -204,6 +212,23 @@ export function Header() {
               </Badge>
             </Button>
           </Box>
+          
+          <Tooltip
+            title={
+              theme.palette.mode === "dark"
+                ? "Switch to light mode"
+                : "Switch to dark mode"
+            }
+          >
+            <IconButton onClick={toggleMode} color="inherit">
+              {theme.palette.mode === "dark" ? (
+                <Brightness7Icon />
+              ) : (
+                <Brightness4Icon />
+              )}
+            </IconButton>
+            
+          </Tooltip>
         </Toolbar>
       </Container>
     </AppBar>

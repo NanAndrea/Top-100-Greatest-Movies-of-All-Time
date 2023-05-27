@@ -228,7 +228,7 @@ export function Home() {
           </Box>
         )}
 
-        <ScrollToTop />
+        <ScrollToTop/>
       </Stack>
     </Box>
   );
