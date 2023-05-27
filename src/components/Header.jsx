@@ -220,7 +220,7 @@ export function Header() {
                 : "Switch to dark mode"
             }
           >
-            <IconButton onClick={toggleMode} color="inherit">
+            <IconButton onClick={toggleMode} color="primary">
               {theme.palette.mode === "dark" ? (
                 <Brightness7Icon />
               ) : (
